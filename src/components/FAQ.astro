@@ -1,0 +1,6 @@
+---
+import { home } from '../data/home';
+import Icon from './Icon.astro';
+---
+<section id="perguntas" class="section parchment"><div class="container faq"><h2>Perguntas frequentes.</h2><div>{home.faq.map(item=><details><summary><h3>{item.question}</h3><Icon name="plus"/></summary><p>{item.answer}</p></details>)}</div></div></section>
+<style>.faq{display:grid;grid-template-columns:1fr 1.4fr;gap:var(--space-8)}details{border-bottom:1px solid var(--color-line);padding-block:var(--space-3)}details:first-child{border-top:1px solid var(--color-line)}summary{min-height:var(--tap-size);display:flex;align-items:center;gap:var(--space-5);justify-content:space-between;list-style:none;cursor:pointer;padding-block:var(--space-4)}summary::-webkit-details-marker{display:none}summary h3{font-size:var(--text-lg);line-height:1.4;letter-spacing:-.02em}summary :global(svg){transition:transform var(--duration-fast) var(--ease-out)}details[open] summary :global(svg){transform:rotate(45deg)}details p{padding:var(--space-2) var(--space-7) var(--space-5) 0}@media(max-width:700px){.faq{grid-template-columns:1fr;gap:var(--space-7)}}</style>

@@ -1,0 +1,11 @@
+---
+import { home } from '../data/home';
+import { cities } from '../data/cities';
+import { visibility, integrations } from '../config/visibility';
+---
+<section id="area-atendida" class="section"><div class="container"><div class="section-head"><h2>{home.areaTitle}</h2><p>{home.areaText}</p></div><div class="area-grid"><div><ul>{cities.map(city=><li>{city}</li>)}</ul><p class="note">{home.areaNote}</p></div><div class="map" data-map-url={visibility.map && integrations.map ? integrations.map:undefined}><span>Mapa do Google My Maps</span>{visibility.map && integrations.map && <button type="button" class="button outline" data-load-map>Carregar mapa</button>}</div></div></div></section>
+<script>
+ const map=document.querySelector<HTMLElement>('[data-map-url]');
+ if(map?.dataset.mapUrl){let loaded=false;const load=()=>{if(loaded)return;loaded=true;const frame=document.createElement('iframe');frame.title='Mapa do Google My Maps';frame.src=map.dataset.mapUrl!;frame.loading='lazy';frame.referrerPolicy='no-referrer';frame.width='640';frame.height='480';map.replaceChildren(frame);};map.querySelector('button')?.addEventListener('click',load);const observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){load();observer.disconnect();}},{rootMargin:'200px'});observer.observe(map);}
+</script>
+<style>.area-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-8)}ul{display:grid;grid-template-columns:1fr 1fr;gap:0 var(--space-5)}li{padding-block:var(--space-4);border-bottom:1px solid var(--color-line);font-size:var(--text-sm)}.note{font-size:var(--text-sm);margin-top:var(--space-6)}.map{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-5);aspect-ratio:4/3;background:var(--color-parchment);color:var(--color-muted);padding:var(--space-5);font-size:var(--text-sm)}.map:has(iframe){padding:0}.map :global(iframe){width:100%;height:100%;border:0}@media(max-width:700px){.area-grid{grid-template-columns:1fr}ul{grid-template-columns:1fr}}</style>

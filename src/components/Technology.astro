@@ -1,0 +1,6 @@
+---
+import { home } from '../data/home';
+import Media from './Media.astro';
+---
+<section id="tecnologia" class="section dark"><div class="container"><div class="section-head"><h2>{home.techTitle}</h2><p>{home.techText}</p></div><div class="equipment">{home.tech.slice(0,2).map((item,i)=><article><Media path={i===0?'/src/assets/tecnologia/faro.webp':'/src/assets/tecnologia/drone.webp'} alt={i===0?'Técnico operando o laser scanner FARO Focus Premium':'Drone DJI Matrice 4E em voo'}/><h3>{item.title}</h3><p>{item.text}</p></article>)}</div><div class="quality">{home.tech.slice(2).map(item=><article><h3>{item.title}</h3><p>{item.text}</p></article>)}</div></div></section>
+<style>.equipment{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-8)}.equipment h3{margin-block:var(--space-5) var(--space-4)}.equipment p{font-size:var(--text-base)}.quality{margin-top:var(--space-8);display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-6)}.quality article{border-top:1px solid var(--color-line-dark);padding-top:var(--space-5)}.quality h3{font-size:var(--text-lg);margin-bottom:var(--space-4)}.quality p{font-size:var(--text-sm)}@media(max-width:800px){.quality{grid-template-columns:1fr 1fr}}@media(max-width:600px){.equipment{grid-template-columns:1fr;gap:var(--space-7)}.quality{grid-template-columns:1fr;gap:var(--space-5)}}</style>
