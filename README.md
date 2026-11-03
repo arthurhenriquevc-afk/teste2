@@ -12,7 +12,7 @@ npm ci
 npm run dev
 ```
 
-O servidor informa a porta e o caminho configurado. A base inicial é `/teste/`. Comandos npm usam sintaxe POSIX para desativar a telemetria de desenvolvimento do Astro. No Windows, use WSL ou Git Bash. Não há telemetria no site publicado.
+O servidor informa a porta e o caminho configurado. A base atual para GitHub Pages é `/teste2/`. Comandos npm usam sintaxe POSIX para desativar a telemetria de desenvolvimento do Astro. No Windows, use WSL ou Git Bash. Não há telemetria no site publicado.
 
 A fonte vem do pacote oficial `geist` 1.9.0. O WOFF2 oficial foi copiado para src/assets/fonts, com sua licença OFL. Não há Google Fonts, CDN ou chamadas de fonte externas. O pacote tem peer dependency de Next; .npmrc usa legacy-peer-deps para não instalar um framework que o projeto não utiliza. npm ci preserva essa decisão.
 
@@ -31,6 +31,10 @@ node scripts/test-html-check.mjs
 A pasta publicável é **dist/**. O build executa scripts/check-html.mjs e scripts/check-copy.mjs. O primeiro rejeita conteúdo proibido, estrutura de H1, imagens sem alt e links vazios; avisa sobre rotas ausentes. O segundo confere 104 textos integrais do conteúdo ativo. Os testes de gesto e colisão exigem o mesmo preview local. O teste negativo do verificador usa fixtures temporárias e não altera dist. Os testes de navegador usam Chromium em /usr/bin/chromium; ajuste executablePath caso o sistema use outro local. Relatórios e capturas ficam em reports/ e .impeccable/review/, fora do Git e do site.
 
 Nenhum servidor Node é necessário na KingHost. O servidor local serve somente para desenvolvimento e verificação.
+
+## Publicação de teste no GitHub Pages
+
+O destino está configurado em src/config/deployment.mjs: site https://arthurhenriquevc-afk.github.io e base /teste2/. O workflow .github/workflows/deploy.yml usa a ação oficial do Astro, executa o build e seus verificadores e publica o artefato pelo GitHub Pages a cada push em main. Em Settings > Pages, a fonte deve ser GitHub Actions. O endereço esperado, após implantação concluída, é https://arthurhenriquevc-afk.github.io/teste2/.
 
 ## Caminho base e publicação na KingHost
 
@@ -86,4 +90,4 @@ Toda a função de envio fica em **src/scripts/submit-quote.ts**. Para integrar 
 
 ## Estado e limitações
 
-Direção, conflitos da skill, textos funcionais, auditoria e resultados reais estão em NOTAS-DE-IMPLEMENTACAO.md. O projeto não foi publicado na KingHost. Os resultados de desempenho correspondem aos placeholders e precisarão de nova medição após fotos e integrações reais.
+Direção, conflitos da skill, textos funcionais, auditoria e resultados reais estão em NOTAS-DE-IMPLEMENTACAO.md. A publicação de teste passou a usar GitHub Pages por solicitação do usuário; KingHost continua como alternativa de upload estático. Os resultados de desempenho correspondem aos placeholders e precisarão de nova medição após fotos e integrações reais.

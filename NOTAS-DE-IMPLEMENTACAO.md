@@ -142,3 +142,9 @@ Constantes de entrelinha, tracking secundário, círculo e afastamento de sublin
 Rascunho do ambiente confirmado como salvo. Requer revisão, salvamento e publicação nas configurações do ambiente para ativar uma nova versão; isso não publica o site na KingHost. A restauração em uma tarefa nova ainda não foi testada.
 
 Documenter concluído: DESIGN.md normativo e sidecar schemaVersion 2 validados, com dez receitas reais e sem rampas de cores sintéticas. Build final preserva somente home/404; a pasta dist é a entrega para upload.
+
+## Publicação de teste pelo GitHub
+
+Solicitada pelo usuário após a entrega. Base alterada de /teste/ para /teste2/ e site para https://arthurhenriquevc-afk.github.io em um único arquivo. Workflow segue a documentação oficial atual do Astro em guides/deploy/github.mdx: checkout v7, withastro/action v6 e deploy-pages v5, Node24.22.1 e npm. Não há domínio personalizado nem alteração visual.
+
+Acesso Git ao repositório confirmado; API api.github.com bloqueada pela política de saída do ambiente. Foram salvos no rascunho os domínios api.github.com e arthurhenriquevc-afk.github.io para configuração do Pages e validação HTTPS. Essa gravação não aplica a política à instância.
