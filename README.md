@@ -23,9 +23,12 @@ npm run build
 npm run preview -- --port 4321
 npm run test:browser
 npm run test:lighthouse
+node scripts/test-gestures.mjs
+node scripts/test-floating.mjs
+node scripts/test-html-check.mjs
 ```
 
-A pasta publicável é **dist/**. O build executa scripts/check-html.mjs e scripts/check-copy.mjs. O primeiro rejeita conteúdo proibido, estrutura de H1, imagens sem alt e links vazios; avisa sobre rotas ausentes. O segundo confere 104 textos integrais do conteúdo ativo. Os testes de navegador usam Chromium em /usr/bin/chromium; ajuste executablePath caso o sistema use outro local. Relatórios e capturas ficam em reports/ e .impeccable/review/, fora do Git e do site.
+A pasta publicável é **dist/**. O build executa scripts/check-html.mjs e scripts/check-copy.mjs. O primeiro rejeita conteúdo proibido, estrutura de H1, imagens sem alt e links vazios; avisa sobre rotas ausentes. O segundo confere 104 textos integrais do conteúdo ativo. Os testes de gesto e colisão exigem o mesmo preview local. O teste negativo do verificador usa fixtures temporárias e não altera dist. Os testes de navegador usam Chromium em /usr/bin/chromium; ajuste executablePath caso o sistema use outro local. Relatórios e capturas ficam em reports/ e .impeccable/review/, fora do Git e do site.
 
 Nenhum servidor Node é necessário na KingHost. O servidor local serve somente para desenvolvimento e verificação.
 

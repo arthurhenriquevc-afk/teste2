@@ -48,7 +48,7 @@ A direção final será registrada antes da UI após o procedimento de direção
 
 ## Cores derivadas
 
-Tokens derivados: #496672 para texto secundário sobre branco e superfícies claras; #becbd0 para divisórias não essenciais; #78909a para divisórias e detalhes sobre azul; #174758 para hover de superfície escura. Todos derivados do azul primário. Branco sobre #002e40: 14,3:1; texto #496672 sobre branco: 6,1:1. Bordas de campos usam #496672, foco usa o azul primário ou branco. Somente a sombra de menu usa rgb(0 46 64 / .14). Contrastes exatos serão recalculados na auditoria.
+Tokens derivados: #496672 para texto secundário sobre branco e superfícies claras; #becbd0 para divisórias não essenciais; #78909a para divisórias e detalhes sobre azul; #174758 para hover de superfície escura. Todos derivados do azul primário. Branco sobre #002e40: 14,34:1; texto #496672 sobre branco: 6,13:1, sobre parchment: 5,63:1 e pearl: 5,88:1. Bordas de campos usam #496672, foco usa o azul primário ou branco. Somente a sombra de menu usa rgb(0 46 64 / .14). Divisórias #becbd0 não carregam informação nem delimitam campos; não são texto. #78909a sobre azul: 4,27:1, usado somente em linhas/detalhes. Texto branco sobre hover #174758: 10,10:1. O nome Geist em @font-face é o registro obrigatório da família, não uma segunda fonte; os componentes consomem --font-body.
 
 ## Dependências e documentação consultada
 
@@ -100,3 +100,45 @@ Tese: o momento focal é a troca de janela, cuja continuidade usa scroll-snap na
 ## Verificações durante as etapas
 
 Build estático e verificação de HTML passaram nas etapas 2 a 8. O primeiro build do layout identificou export WOFF2 bloqueado no pacote Geist; corrigido com arquivo oficial local. A validação em 320px encontrou excesso de largura na navegação de janelas; gaps e controles foram ajustados. O Lighthouse inicial marcou 100/100/96, com 404 de favicon como única falha de boas práticas. A referência vazia de favicon evita uma chamada inexistente até haver identidade gráfica real. Não houve relaxamento de checks.
+
+## Auditoria técnica final
+
+- Acessibilidade 4/4: axe desktop e mobile com menu aberto, zero violações WCAG A/AA; foco, abas, Esc, erros associados, teclado, FAQ nativo e controles de pelo menos 44 × 44 px verificados. Isso não substitui auditoria manual com pessoas ou equipamentos físicos.
+- Performance 4/4: Lighthouse mobile 100, LCP 0,9 s e CLS 0 no build com placeholders. Não há movimento automático, requisições externas iniciais, cookies ou storage. A fonte é local e pré-carregada.
+- Tokens 4/4: paleta e estados derivados em tokens.css, corpo e componentes usam variáveis; contrastes de texto AA calculados. Não há tema alternativo.
+- Responsividade 4/4: 320, 390, 768, 1280 e 1600 px sem overflow, reflow equivalente a zoom 200% e alvos de toque verificados.
+- Integridade 4/4: build estático, duas páginas, 104 textos integrais conferidos, links futuros registrados, ausência de conteúdo pendente no HTML. Verificador negativo testado contra 15 violações; rotas ausentes só avisam.
+
+Total técnico: 20/20 no escopo verificado. Não há P0/P1 técnico aberto. Safari, Firefox e dispositivos físicos não foram executados; o teste de toque usa eventos reais do protocolo Chromium em contexto mobile. A implantação e as mídias reais não foram validadas.
+
+Lighthouse mobile final: Performance 100; Acessibilidade 100; Boas práticas 100. Relatórios atuais em reports/lighthouse-mobile.json e .html. Metas atingidas nesta instância, antes das imagens/integrações finais.
+
+Teste principal: 35 verificações passadas. Gesto: 9 verificações adicionais passadas, incluindo arraste real de mouse e touchStart/move/end (382 px de deslocamento), cancelamento, perda de captura, clique fora, filtro por URL e público.
+
+Detector Impeccable executado uma única vez: um warning overused-font por Geist. Mantido por determinação expressa do briefing, sem trocar fonte nem executar detector duplicado. Sem outros achados. Não foi instalado hook automático.
+
+## Pendências concretas
+
+Do usuário: logos, fotos listadas em ASSETS-PENDENTES.md, dados completos de cases, lista final de clientes, definição de selo, URLs sociais, link real da nuvem e URL de incorporação My Maps. Não há pergunta de produto bloqueante.
+
+Etapas futuras: dez páginas de serviço, sobre, cases individuais e privacidade; integração de e-mail com backend real. Nesta etapa o WhatsApp funciona sem backend. Nenhuma publicação, envio de formulário a destinatário real, push Git ou upload FTP foi realizado.
+
+## Correção da revisão independente
+
+Primeiro veredito: fix, exclusivamente por colisão do WhatsApp flutuante com controles durante a rolagem mobile. Confirmado por hit-testing em 390 × 844: o toque em parte do botão Avançar retornava Fale no WhatsApp. Corrigido com faixa reservada no header em até 960px: o atalho permanece fixo e acessível no topo, sem ocupar a faixa de conteúdo. Mantida a posição inferior no desktop.
+
+Regressão específica: 10 testes de hit-testing em 320px e 390px, envolvendo os dois carrosséis, telefone, envio e o cabeçalho com menu aberto. Todos passaram. As 35 verificações gerais também passaram novamente. Lighthouse após correção: 100/100/100, LCP 0,9s e CLS 0. Capturas finais recapturadas nos mesmos tamanhos para o veredito do revisor.
+
+Configuração reutilizável do ambiente: install_script com npm ci e build, start_skill com diretório, inicialização, readiness e checks. Salvar o rascunho não publica a configuração nem a home na KingHost.
+
+## Encerramento da revisão e reprodutibilidade
+
+O revisor pontuou a única correção material como resolvida e retornou disposition: ship no escopo dela. O primeiro review cobriu a superfície e não solicitou rebuild. DESIGN.md e .impeccable/design.json documentam o sistema implementado, sem referências visuais externas.
+
+Foram concluídas 54 verificações funcionais (35 gerais, 9 de gestos, 10 de colisões) e 15 testes negativos do verificador de HTML. npm ci foi executado com o lockfile e o build passou novamente. O modo dev também foi iniciado e respondeu com título e conteúdo corretos em /teste/.
+
+Constantes de entrelinha, tracking secundário, círculo e afastamento de sublinhado foram promovidas a tokens preservando exatamente seus valores; nenhum componente declara fonte ou cor fora dos tokens. A declaração @font-face registra o nome oficial da família.
+
+Rascunho do ambiente confirmado como salvo. Requer revisão, salvamento e publicação nas configurações do ambiente para ativar uma nova versão; isso não publica o site na KingHost. A restauração em uma tarefa nova ainda não foi testada.
+
+Documenter concluído: DESIGN.md normativo e sidecar schemaVersion 2 validados, com dez receitas reais e sem rampas de cores sintéticas. Build final preserva somente home/404; a pasta dist é a entrega para upload.

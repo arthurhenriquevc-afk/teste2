@@ -4,8 +4,8 @@ Coloque cada arquivo exatamente no caminho abaixo e execute npm run build. A imp
 
 | Caminho | Página | Seção | Proporção | Formato/tamanho | Texto alternativo |
 |---|---|---|---|---|---|
-| src/assets/logos/union3d-horizontal.svg | Home | Header | 4:1 | SVG | UNION3D |
-| src/assets/logos/union3d.svg | Home | Rodapé | 1:1 | SVG | UNION3D |
+| src/assets/logos/union3d-horizontal.svg | Home e 404 | Header | 4:1 | SVG | UNION3D |
+| src/assets/logos/union3d.svg | Home e 404 | Rodapé | 1:1 | SVG | UNION3D |
 | src/assets/destaques/slide-01.webp | Home | Destaques | 4:5 desktop, recorte 16:7 mobile | WebP, 1280 × 1600 | Vista aérea de Balneário Camboriú com prédios entre a neblina |
 | src/assets/destaques/slide-02.webp | Home | Destaques | 4:5 desktop, recorte 16:7 mobile | WebP, 1280 × 1600 | Operador da UNION3D com o laser scanner FARO Focus Premium sobre a armação de uma laje, em dia de chuva |
 | src/assets/destaques/slide-03.webp | Home | Destaques | 4:5 desktop, recorte 16:7 mobile | WebP, 1280 × 1600 | Apartamento vazio pronto para receber mobília |
