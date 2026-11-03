@@ -1,0 +1,6 @@
+---
+import { home } from '../data/home';
+import Media from './Media.astro';
+---
+<section id="problemas" class="section"><div class="container"><h2>{home.problemsTitle}</h2><div class="problems-list">{home.problems.map(p=><article><Media path={p.image} alt={p.alt}/><div><h3>{p.title}</h3><p>{p.text}</p></div></article>)}</div></div></section>
+<style>h2{max-width:24ch}.problems-list{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-7) var(--space-8);margin-top:var(--space-8)}article{display:grid;grid-template-columns:1fr 1.3fr;gap:var(--space-5);border-top:1px solid var(--color-line);padding-top:var(--space-5);align-items:start}article :global(.media){aspect-ratio:4/5}h3{font-size:var(--text-lg);margin-bottom:var(--space-4);letter-spacing:-.02em}p{font-size:var(--text-sm)}@media(max-width:960px){.problems-list{grid-template-columns:1fr}article{grid-template-columns:1fr 2fr}article :global(.media){aspect-ratio:4/3}}@media(max-width:480px){article{grid-template-columns:1fr}article :global(.media){aspect-ratio:16/7}.problems-list{gap:var(--space-7)}}</style>

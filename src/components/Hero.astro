@@ -1,0 +1,37 @@
+---
+import { home } from '../data/home';
+import { anchor } from '../config/urls';
+import Media from './Media.astro';
+import Icon from './Icon.astro';
+---
+<section id="destaques" class="hero dark" aria-label="Destaques">
+ <div class="container">
+ {home.hero.map((slide,i)=><article class="hero-slide" aria-label={`${i+1} de 3`} data-slide>
+  <div class="hero-copy">{i===0 ? <h1>{slide.title}</h1> : <h2>{slide.title}</h2>}<p>{slide.text}</p>
+   <div class="actions">{slide.buttons.map((label,b)=><a class:list={['button',b===0 ? 'light':'outline']} href={anchor(label.includes('janelas') || label.startsWith('Serviços') ? 'janelas' : 'contato')} data-filter-target={label==='Serviços para empresas' ? 'Empresas' : label==='Serviços para profissionais' ? 'Profissionais' : undefined}>{label}{b===0 && <Icon/>}</a>)}</div>
+  </div>
+  <div class="hero-visual"><Media path={slide.image} alt={slide.alt} ratio="4/5" priority={i===0}/></div>
+ </article>)}
+ <div class="hero-controls js-only"><div class="hero-indicators">{home.hero.map((_,i)=><button type="button" aria-label={`Ir para o slide ${i+1}`} aria-current={i===0 ? 'true':undefined} data-go-slide={i}>{String(i+1).padStart(2,'0')}</button>)}</div><div class="actions"><button class="icon-button" data-hero-prev aria-label="Slide anterior"><Icon name="left"/></button><button class="icon-button" data-hero-next aria-label="Próximo slide"><Icon/></button></div><span class="sr-only" aria-live="polite" data-hero-status></span></div>
+ </div>
+</section>
+<script>
+ const slides = Array.from(document.querySelectorAll<HTMLElement>('[data-slide]'));
+ const indicators = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-go-slide]'));
+ let active = 0;
+ const show = (index: number, announce = true) => {
+  active = (index+slides.length)%slides.length;
+  slides.forEach((s,i)=>{s.hidden=i!==active;});
+  indicators.forEach((b,i)=>{if(i===active)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current');});
+  if(announce) document.querySelector('[data-hero-status]')!.textContent=`Slide ${active+1} de ${slides.length}`;
+ };
+ show(0,false);
+ indicators.forEach((b,i)=>b.addEventListener('click',()=>show(i)));
+ document.querySelector('[data-hero-prev]')?.addEventListener('click',()=>show(active-1));
+ document.querySelector('[data-hero-next]')?.addEventListener('click',()=>show(active+1));
+</script>
+<style>
+ .hero-slide{display:grid;grid-template-columns:1.55fr 1fr;gap:var(--space-8);padding-block:var(--space-8);align-items:center;min-height:690px}.hero-copy{padding-block:var(--space-6)}.hero-copy h2{font-size:var(--text-display)}.hero-copy p{margin-top:var(--space-6);margin-bottom:var(--space-7);font-size:var(--text-md);max-width:45ch}.hero-visual{align-self:stretch;display:flex;align-items:center}.hero-visual :global(.media){background:var(--color-hover);color:var(--color-canvas);max-height:580px}.hero-visual :global(.media:before),.hero-visual :global(.media:after){border-color:var(--color-line-dark)}.hero-controls{display:flex!important;align-items:center;justify-content:space-between;gap:var(--space-5);border-top:1px solid var(--color-line-dark);padding-block:var(--space-5)}html:not([data-enhanced]) .hero-controls{display:none!important}.hero-indicators{display:flex;gap:var(--space-3)}.hero-indicators button{min-width:52px;border-bottom:2px solid transparent;color:inherit;font-size:var(--text-sm);font-variant-numeric:tabular-nums}.hero-indicators button[aria-current]{border-color:var(--color-canvas)}
+ @media(max-width:960px){.hero-slide{min-height:auto;gap:var(--space-6);grid-template-columns:1.4fr 1fr;padding-block:var(--space-7)}.hero-copy{padding-block:0}.hero-copy .actions{gap:var(--space-3)}.hero-copy h1,.hero-copy h2{font-size:clamp(2.2rem,4.5vw,3.6rem)}}
+ @media(max-width:600px){.hero-slide{grid-template-columns:1fr;padding-top:var(--space-7);padding-bottom:var(--space-6);gap:var(--space-7)}.hero-copy h1,.hero-copy h2{font-size:clamp(2rem,7.7vw,3rem)}.hero-copy p{font-size:var(--text-base);margin-block:var(--space-5)}.hero-copy .actions{display:grid}.hero-copy .button{justify-content:space-between}.hero-visual :global(.media){aspect-ratio:16/7!important}.hero-controls{padding-block:var(--space-4)}}
+</style>
