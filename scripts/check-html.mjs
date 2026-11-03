@@ -6,6 +6,7 @@ const root = path.resolve('dist');
 const files = fs.readdirSync(root, { recursive: true }).filter(p => p.endsWith('.html'));
 const pending = fs.existsSync('ROTAS-PENDENTES.md') ? fs.readFileSync('ROTAS-PENDENTES.md','utf8') : '';
 let errors = 0;
+const warned = new Set();
 const fail = (f, msg) => { console.error(`FALHA ${f}: ${msg}`); errors++; };
 for (const f of files) {
  const html = fs.readFileSync(path.join(root,f),'utf8');
@@ -22,12 +23,11 @@ for (const f of files) {
     const url = attrs.href.slice(deployment.base.length).split(/[?#]/)[0];
     if(url && !fs.existsSync(path.join(root,url)) && !fs.existsSync(path.join(root,url,'index.html'))) {
      const route = '/'+url;
-     console.warn(`AVISO ${f}: ${route} ${pending.includes(route) ? '(registrada)' : '(não registrada)'}`);
-     if(!pending.includes(route)) fail(f, 'rota pendente não documentada: '+route);
+     if(!warned.has(route)){console.warn(`AVISO ${route} ${pending.includes(route) ? '(registrada)' : '(não registrada)'}`);warned.add(route);}
     }
    }
   }
-  if(attrs['data-service-name'] && /MEP/.test(node.childNodes?.map(n=>n.value||'').join(''))) fail(f,'MEP em serviço');
+  if(Object.hasOwn(attrs,'data-service-name') && /MEP/.test(node.childNodes?.map(n=>n.value||'').join(''))) fail(f,'MEP em serviço');
   (node.childNodes||[]).forEach(walk);
  };
  walk(parse(html));

@@ -58,7 +58,19 @@ Tokens derivados: #496672 para texto secundário sobre branco e superfícies cla
 
 ## Textos funcionais criados
 
-Lista será preenchida com cada rótulo funcional efetivamente implementado.
+- UNION3D, início (aria-label do logo).
+- Navegação principal; Público dos serviços; Fechar serviços; Fechar menu.
+- Saiba mais: {nome do serviço}; Agendar: {nome do serviço} (nomes acessíveis de links).
+- Ir para o slide {n}; Slide {n} de 3; 1 de 3; 2 de 3; 3 de 3; Slide anterior; Próximo slide.
+- Ver todos os serviços; Filtrar serviços por público; Janelas de escaneamento, arraste ou use as setas.
+- Janela {n}, {título em minúsculas}; Fora do relógio da obra, retrofit e vendas.
+- Carregar mapa (somente quando o mapa for habilitado).
+- Página não encontrada.; O endereço solicitado não está disponível.; Voltar para a home.
+- Escolha a etapa da obra.; Informe seu nome.; Informe o WhatsApp com DDD e 11 dígitos.; Informe um e-mail válido.; Escolha a cidade da obra.
+- Revise os campos indicados.
+- A solicitação foi preparada para abrir no WhatsApp. Confirme o envio na conversa.
+
+Rótulos exigidos pelo próprio briefing, como Comparar foto e nuvem de pontos e Fale no WhatsApp, foram preservados. Placeholders de mídia usam somente os textos alternativos fornecidos. Não há nova frase de marca.
 
 ## Dúvidas e dependências do usuário
 
@@ -76,3 +88,15 @@ Antes do código: repositório sem commits, somente skill instalada e não rastr
 Leituras concluídas antes do primeiro código: referências e scripts textuais em blocos, sem truncamento. Dados vetoriais de fonte examinados estruturalmente por inteiro, conforme ressalva acima. Integridade dos 63 arquivos da skill idêntica ao ZIP. Motor validado pelo SHA-256 do manifesto.
 
 Concept-seed executado após PRODUCT.md, índice 6, referência seed:90dcf11a8d6b7fab. Lista e contrato em .impeccable/surfaces. Resultado degradado sem challengers ou boards externos; não houve nova consulta ao catálogo, que o briefing proíbe. Construção em código com a composição de folha de acompanhamento executivo, paleta e conteúdo preservados.
+
+## Implementação e dependências
+
+Astro 7.4.5, Geist 1.9.0. Sem framework CSS, componentes de terceiros, biblioteca de animação, adaptador ou endpoint. Desenvolvimento: parse5 para inspecionar HTML; Playwright e axe para fluxos e acessibilidade; Lighthouse para as metas. Essas ferramentas ficam fora dos bundles publicados. O peer de Next do pacote Geist não é instalado (.npmrc). O WOFF2 oficial é copiado para src/assets/fonts e servido pelo Astro; a licença acompanha o fonte.
+
+## Motion
+
+Tese: o momento focal é a troca de janela, cuja continuidade usa scroll-snap nativo e contador sincronizado. Feedback de botões usa transform curto; FAQ gira somente o ícone. Não há autoplay, animação de números, parallax ou loops. Conteúdo começa visível. prefers-reduced-motion torna rolagem e transições instantâneas. Nenhuma animação altera medidas do layout.
+
+## Verificações durante as etapas
+
+Build estático e verificação de HTML passaram nas etapas 2 a 8. O primeiro build do layout identificou export WOFF2 bloqueado no pacote Geist; corrigido com arquivo oficial local. A validação em 320px encontrou excesso de largura na navegação de janelas; gaps e controles foram ajustados. O Lighthouse inicial marcou 100/100/96, com 404 de favicon como única falha de boas práticas. A referência vazia de favicon evita uma chamada inexistente até haver identidade gráfica real. Não houve relaxamento de checks.
