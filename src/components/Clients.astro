@@ -1,0 +1,6 @@
+---
+import { clients } from '../data/proof';
+import Media from './Media.astro';
+---
+<section id="clientes" class="section parchment"><div class="container"><h2>Construtoras e incorporadoras que já contrataram a UNION3D.</h2><ul class="client-logos">{clients.map(client=><li><Media path={client.image} alt={client.name} ratio="3/2"/></li>)}</ul></div></section>
+<style>.client-logos{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--space-6);margin-top:var(--space-8)}@media(max-width:800px){.client-logos{grid-template-columns:repeat(3,1fr)}}@media(max-width:480px){.client-logos{grid-template-columns:repeat(2,1fr)}}</style>
