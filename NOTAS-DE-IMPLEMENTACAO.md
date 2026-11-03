@@ -48,7 +48,7 @@ A direção final será registrada antes da UI após o procedimento de direção
 
 ## Cores derivadas
 
-A definir nos tokens durante a etapa 2, com cálculo de contraste. Nenhuma cor adicional de marca será introduzida.
+Tokens derivados: #496672 para texto secundário sobre branco e superfícies claras; #becbd0 para divisórias não essenciais; #78909a para divisórias e detalhes sobre azul; #174758 para hover de superfície escura. Todos derivados do azul primário. Branco sobre #002e40: 14,3:1; texto #496672 sobre branco: 6,1:1. Bordas de campos usam #496672, foco usa o azul primário ou branco. Somente a sombra de menu usa rgb(0 46 64 / .14). Contrastes exatos serão recalculados na auditoria.
 
 ## Dependências e documentação consultada
 
@@ -70,3 +70,9 @@ Lista será preenchida com cada rótulo funcional efetivamente implementado.
 ## Validação e resultados
 
 Antes do código: repositório sem commits, somente skill instalada e não rastreada. GitHub remoto sem referências confirmado na instalação anterior. Nenhum código de aplicação existente a preservar.
+
+## Direção final e leitura concluída
+
+Leituras concluídas antes do primeiro código: referências e scripts textuais em blocos, sem truncamento. Dados vetoriais de fonte examinados estruturalmente por inteiro, conforme ressalva acima. Integridade dos 63 arquivos da skill idêntica ao ZIP. Motor validado pelo SHA-256 do manifesto.
+
+Concept-seed executado após PRODUCT.md, índice 6, referência seed:90dcf11a8d6b7fab. Lista e contrato em .impeccable/surfaces. Resultado degradado sem challengers ou boards externos; não houve nova consulta ao catálogo, que o briefing proíbe. Construção em código com a composição de folha de acompanhamento executivo, paleta e conteúdo preservados.

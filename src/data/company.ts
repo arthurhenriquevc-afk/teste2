@@ -1,0 +1,1 @@
+export const company = { name: 'UNION3D', cnpj: '02.897.854/0001-48', address: 'Rua 801, nº 95, Centro, Balneário Camboriú, SC, CEP 88330-717', street: 'Rua 801, nº 95, Centro', postal: 'CEP 88330-717', phone: '(47) 99649-0312', phoneLink: '+5547996490312', whatsappNumber: '5547996490312', whatsapp: 'https://wa.me/5547996490312', email: 'contato@union3d.com.br' };
