@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev --host 0.0.0.0",
     "build": "ASTRO_TELEMETRY_DISABLED=1 astro build && node scripts/check-html.mjs && node scripts/check-copy.mjs",
+    "build:pages": "node scripts/build-pages.mjs",
     "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview --host 0.0.0.0",
     "check:html": "node scripts/check-html.mjs",
     "test:browser": "node scripts/test-browser.mjs",

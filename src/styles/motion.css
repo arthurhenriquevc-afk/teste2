@@ -1,0 +1,33 @@
+/* Motion has one focal scene. Supporting states share the same deceleration. */
+.site-header::after{content:'';position:absolute;inset:auto 0 0;height:2px;background:var(--color-primary);transform:scaleX(var(--reading-progress,0));transform-origin:left;pointer-events:none}
+.site-header{transition:box-shadow var(--duration-normal) var(--ease-out)}
+.site-header[data-scrolled]{box-shadow:var(--shadow-menu)}
+.main-nav a{position:relative}
+.main-nav a::after{content:'';position:absolute;inset:auto 0 0;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform var(--duration-normal) var(--ease-out)}
+.main-nav a:hover{text-decoration:none}.main-nav a:hover::after,.main-nav a[aria-expanded=true]::after{transform:scaleX(1);transform-origin:left}
+.button:hover{transform:none}
+.button svg,.text-link svg,.icon-button svg,.window-services>a>svg{transition:transform var(--duration-normal) var(--ease-out)}
+.button:hover svg,.text-link:hover svg,.icon-button:hover svg,.window-services>a:hover>svg{transform:translateX(4px)}
+.icon-button:has([data-direction=left]):hover svg{transform:translateX(-4px)}
+.button:active,.icon-button:active{transform:scale(.97)}
+.icon-button,.floating-whatsapp{transition:background var(--duration-fast) var(--ease-out),color var(--duration-fast) var(--ease-out),transform var(--duration-fast) var(--ease-out)}
+.floating-whatsapp:hover{background:var(--color-primary);color:var(--color-canvas)}
+.window-services>a h4{transition:transform var(--duration-normal) var(--ease-out)}
+.window-services>a:hover h4{transform:translateX(4px)}
+.media img{transition:transform var(--duration-slow) var(--ease-out)}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){.equipment article:hover .media img,.problems-list article:hover .media img{transform:scale(1.035)}}
+.form-field label{transition:transform var(--duration-fast) var(--ease-out)}
+.form-field:focus-within label{transform:translateX(4px)}
+.form-field input,.form-field select,.form-field textarea{transition:outline-offset var(--duration-fast) var(--ease-out)}
+.form-status:not(:empty){border-top:1px solid var(--color-line-dark);padding-top:var(--space-4)}
+/* Native details remains functional in browsers without interpolable auto sizes. */
+@supports (interpolate-size:allow-keywords){
+ details{interpolate-size:allow-keywords}
+ details::details-content{block-size:0;overflow:clip;transition:block-size var(--duration-normal) var(--ease-out),content-visibility var(--duration-normal) allow-discrete}
+ details[open]::details-content{block-size:auto}
+}
+@media(prefers-reduced-motion:reduce){
+ details::details-content{transition-duration:.01ms!important}
+ .button:hover svg,.text-link:hover svg,.icon-button:hover svg,.window-services>a:hover>svg,.window-services>a:hover h4,.form-field:focus-within label{transform:none}
+ .button:active,.icon-button:active{transform:none}
+}

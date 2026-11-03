@@ -1,4 +1,5 @@
 import { submitQuote, type Quote } from './submit-quote';
+import { motion } from './motion-utils';
 const form=document.querySelector<HTMLFormElement>('#quote-form')!;
 const phone=form.elements.namedItem('phone') as HTMLInputElement;
 phone.addEventListener('input',()=>{
@@ -17,13 +18,21 @@ function validate(field:HTMLInputElement|HTMLSelectElement){
  return !error;
 }
 const fields=Array.from(form.querySelectorAll<HTMLInputElement|HTMLSelectElement>('input,select'));
+form.addEventListener('input', () => {
+ if (form.dataset.state === 'prepared') {
+  delete form.dataset.state;
+  form.querySelector<HTMLElement>('[role=status]')!.textContent = '';
+ }
+});
 fields.forEach(f=>{f.addEventListener('blur',()=>{if(f.getAttribute('aria-invalid')==='true')validate(f);});f.addEventListener('input',()=>{if(f.getAttribute('aria-invalid')==='true')validate(f);});});
 form.addEventListener('submit',e=>{
  e.preventDefault();let first:HTMLElement|undefined;
  fields.forEach(f=>{if(!validate(f)&&!first)first=f;});
  const status=form.querySelector<HTMLElement>('[role=status]')!;
- if(first){status.textContent='Revise os campos indicados.';first.focus();return;}
+ if(first){form.dataset.state='invalid';status.textContent='Revise os campos indicados.';first.focus();motion(status,[{opacity:.4},{opacity:1}],{duration:180});return;}
  const values=Object.fromEntries(new FormData(form)) as Quote;
  submitQuote(values);
  status.textContent='A solicitação foi preparada para abrir no WhatsApp. Confirme o envio na conversa.';
+ form.dataset.state='prepared';
+ motion(status,[{clipPath:'inset(0 100% 0 0)',opacity:.5},{clipPath:'inset(0 0 0 0)',opacity:1}],{duration:420});
 });

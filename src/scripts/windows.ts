@@ -1,8 +1,10 @@
+import { motion, enterList } from './motion-utils';
 const track = document.querySelector<HTMLElement>('.window-track')!;
 const windows = Array.from(track.querySelectorAll<HTMLElement>('[data-window]'));
 const filters = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-window-filter]'));
 const prev = document.querySelector<HTMLButtonElement>('[data-window-prev]')!;
 const next = document.querySelector<HTMLButtonElement>('[data-window-next]')!;
+const steps = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-window-step]'));
 let visible = windows;
 let index = 0;
 const reduced = matchMedia('(prefers-reduced-motion:reduce)');
@@ -10,6 +12,10 @@ function position(w:HTMLElement){return w.getBoundingClientRect().left-track.get
 function update(){
  document.querySelector('[data-window-count]')!.textContent=`${String(index+1).padStart(2,'0')} / ${String(visible.length).padStart(2,'0')}`;
  prev.disabled=index===0;next.disabled=index===visible.length-1;
+ steps.forEach((step, i) => {
+  step.hidden = windows[i].hidden;
+  if (windows[i] === visible[index]) step.setAttribute('aria-current', 'step'); else step.removeAttribute('aria-current');
+ });
 }
 function go(i:number){index=Math.max(0,Math.min(visible.length-1,i));track.scrollTo({left:position(visible[index]),behavior:reduced.matches?'instant':'smooth'});update();}
 function filter(audience:string, save=false){
@@ -22,9 +28,12 @@ function filter(audience:string, save=false){
  visible=windows.filter(w=>!w.hidden);index=0;
  filters.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.windowFilter===audience)));
  track.scrollTo({left:0,behavior:'instant'});update();
+ enterList(visible[0], '[data-window-service]:not([hidden])');
+ motion(visible[0].querySelector('.window-main'), [{ opacity: .45, transform: 'translateX(18px)' }, { opacity: 1, transform: 'translateX(0)' }], { duration: 420 });
  if(save){const url=new URL(location.href);if(audience==='Todos')url.searchParams.delete('publico');else url.searchParams.set('publico',audience.toLowerCase());url.hash='janelas';history.replaceState(null,'',url);}
 }
 filters.forEach(b=>b.addEventListener('click',()=>filter(b.dataset.windowFilter!,true)));
+steps.forEach((step, i) => step.addEventListener('click', () => go(visible.indexOf(windows[i]))));
 prev.addEventListener('click',()=>go(index-1));next.addEventListener('click',()=>go(index+1));
 track.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();go(index+1);}else if(e.key==='ArrowLeft'){e.preventDefault();go(index-1);}else if(e.key==='Home'){e.preventDefault();go(0);}else if(e.key==='End'){e.preventDefault();go(visible.length-1);}});
 let scrollTimer:ReturnType<typeof setTimeout>;

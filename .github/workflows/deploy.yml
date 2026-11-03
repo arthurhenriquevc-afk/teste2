@@ -20,11 +20,14 @@ jobs:
     steps:
       - name: Obter código
         uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
       - name: Instalar, validar e gerar site estático
         uses: withastro/action@v6
         with:
           node-version: '24.22.1'
           package-manager: 'npm'
+          build-cmd: npm run build:pages
   deploy:
     needs: build
     runs-on: ubuntu-latest

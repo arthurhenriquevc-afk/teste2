@@ -1,5 +1,7 @@
 # Prompt: home da UNION3D em Astro com a skill Impeccable
 
+> **Documento histórico, substituído pela orientação atual do usuário.** O usuário revogou as travas deste prompt e autorizou a evolução visual, animações, motion e efeitos da home existente com a Impeccable. Somente cores e fonte Geist permanecem como restrições visuais obrigatórias. As regras abaixo registram a implementação original e não limitam a nova execução. O direcionamento vigente está em `docs/MOTION.md`. Dados comerciais continuam sendo tratados como fatos, sem invenção de provas ou medições.
+
 ## 0. Como ler este prompt
 
 Este prompt divide o trabalho em duas zonas.

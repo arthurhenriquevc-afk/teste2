@@ -172,6 +172,8 @@ A interface organiza serviços e etapas como um registro de obra: campos amplos 
 
 Este documento registra o sistema implementado em src/pages/index.astro, src/styles/tokens.css, src/styles/global.css e componentes relacionados. A fonte única e a paleta são compromissos fixos do briefing; decisões descritivas seguem a direção já delegada em PRODUCT.md. Fotos, logos, mapa e visualizador reais ainda não foram recebidos. As áreas neutras atuais são reservas de conteúdo: não estabelecem tratamento fotográfico, composição de fotos futuras ou uma prova comercial. A gramática de imagens reais permanece em aberto até existirem arquivos.
 
+A orientação vigente do usuário substitui as restrições do prompt histórico, preservando somente cores e fonte como limites visuais obrigatórios. A evolução de motion está em docs/MOTION.md. O destaque usa agora um estudo arquitetônico ilustrativo em pontos e linhas, com legenda explícita, no lugar da reserva de fotografia. As demais reservas continuam identificando mídias reais ausentes.
+
 **Key Characteristics:**
 
 - Geist única, títulos fluidos de peso médio e números tabulares.
@@ -228,7 +230,7 @@ A paleta fixa combina azul profundo e neutros frios; as derivações sustentam c
 
 O contêiner central tem largura máxima de 1440px, incluindo o gutter fluido. O espaçamento de seção varia entre 4rem e 8rem. A escala de espaçamento do frontmatter governa margens, padding e gaps. Cabeçalhos de seção usam duas colunas (1.15fr e 1fr), gap de 4rem e passagem para coluna única em até 600px. A ordem do conteúdo continua a de HOME.md.
 
-O destaque usa duas colunas (1.55fr e 1fr), altura mínima de 690px e faixa de controles separada da mídia. Em até 960px a altura torna-se natural e a proporção passa a 1.4fr e 1fr; em até 600px, texto e mídia empilham. Os números formam três colunas no desktop e linhas horizontais empilhadas no mobile. Problemas combinam mídia e texto em lista de duas colunas, passando a uma coluna de artigos em até 960px e empilhando seu conteúdo em até 480px.
+O destaque usa duas colunas (1.35fr e 1fr), altura mínima de 690px e faixa de controles separada da cena compartilhada pelos três slides. Em até 960px a altura mínima passa a 600px e a proporção a 1.25fr e 1fr; em até 600px, texto e cena empilham com altura natural. Os números formam três colunas no desktop e linhas horizontais empilhadas no mobile. Problemas combinam mídia e texto em lista de duas colunas, passando a uma coluna de artigos em até 960px e empilhando seu conteúdo em até 480px.
 
 Os pontos de mudança são os que os componentes realmente usam:
 
@@ -267,7 +269,7 @@ O token radius-pill está declarado na fonte, mas não é consumido pela home; n
 
 ### Buttons
 
-Controles compactos, com rótulo explícito e setas SVG quando usadas no código. O botão primary combina azul e branco; light inverte os papéis, e outline acompanha a cor do contexto com borda visível. Todos usam raio sm e padding do frontmatter. Hover muda o fundo e desloca o botão 2px para cima (160ms, ease-out). O foco usa contorno de 3px em currentColor, afastado 4px. Controles desabilitados usam opacidade de 0.5.
+Controles compactos, com rótulo explícito e setas SVG quando usadas no código. O botão primary combina azul e branco; light inverte os papéis, e outline acompanha a cor do contexto com borda visível. Todos usam raio sm e padding do frontmatter. Hover muda o fundo e desloca a seta 4px no sentido da navegação, sem deslocar o botão inteiro. Pressionar comprime o controle a 0.97. O foco usa contorno de 3px em currentColor, afastado 4px. Controles desabilitados usam opacidade de 0.5.
 
 Links usam o token underline-default (0.22em) como afastamento do sublinhado; a seleção de filtro usa underline-active (0.25em), e os títulos de serviço no hover usam underline-compact (0.2em).
 
@@ -293,15 +295,21 @@ O mega menu é um painel absoluto abaixo do header, com sombra menu, padding ver
 
 ### Destaques / Motion
 
-Três slides manuais, sem autoplay. Indicadores numerados e botões anterior/próximo ficam na faixa inferior, com estado atual sublinhado e anúncio de slide. A troca usa hidden, sem inventar transição de entrada. Sem JavaScript, os slides permanecem em sequência.
+Três slides manuais, sem autoplay. Indicadores numerados e botões anterior/próximo ficam na faixa inferior, com estado atual sublinhado e anúncio de slide. A seleção usa hidden para manter somente o slide ativo na árvore acessível; a entrada combina recorte direcional do título, continuidade do parágrafo e das ações, e mudança da perspectiva do estudo espacial. A troca pode ser interrompida sem deixar conteúdo escondido. Sem JavaScript, os slides permanecem em sequência.
 
-O movimento implementado usa CSS e APIs nativas: hover de botão, rolagem suave das janelas e âncoras, rotação do sinal de FAQ e reposicionamento do skip link ao foco. Não há biblioteca de animação, parallax, revelação no scroll nem números progressivos. Com prefers-reduced-motion, rolagem vira imediata e durações passam a 0.01ms. Os tokens duration-normal e duration-slow estão declarados, mas não geram comportamento nesta superfície.
+O momento focal é a passagem de um plano de leitura por um espaço arquitetônico sintético em Canvas 2D. Pontos e contornos se resolvem em uma geometria legível em 1350ms, com perspectiva suavemente responsiva ao ponteiro. A legenda informa que é uma ilustração, nunca um levantamento real. A renderização termina em repouso e é suspensa fora da tela e em abas ocultas. A densidade de pixels é limitada a 1.5. Não há dependência de animação nem requisições externas.
+
+Web Animations API governa transições canceláveis com curva cubic-bezier(.16,1,.3,1): menus e abas em 260 a 420ms, títulos em 640ms (780ms na primeira entrada), texto e ações em 400 a 480ms. Uma lista relacionada de garantias técnicas recebe recorte sequencial de 500ms; não há uma entrada genérica repetida em toda seção. Os três totais fazem uma contagem única de 1000ms, preservando o valor final no HTML e no nome acessível. O cabeçalho registra o avanço de leitura por uma linha de 2px, sem controlar a rolagem.
+
+Com prefers-reduced-motion, a cena é estática, contagens não são iniciadas, animações JavaScript em andamento são canceladas e as mudanças de estado são imediatas. A abertura nativa do FAQ usa interpolação de block-size com fallback; seu pseudo-elemento também recebe duração reduzida. O marcador de aprimoramento é aplicado no head antes da primeira pintura, e os slides inativos já vêm ocultos no HTML para evitar reorganização tardia. Um fallback noscript restaura os três destaques. Conteúdo não depende de uma animação completar para ser legível.
 
 ### Janelas de obra
 
 Entidades reais: sete janelas, dez serviços numerados e dois públicos. O rótulo da janela é conteúdo identificador da etapa, não um eyebrow decorativo. A janela relaciona etapa, o que se escaneia, mídia e serviços correspondentes. A última reúne demandas fora do relógio da obra.
 
 Com JavaScript, a lista vira um trilho horizontal com snap, filtro por público, contador e anterior/próximo desabilitados nos limites. O filtro oculta serviços incompatíveis e janelas sem resultados; mantém o estado no parâmetro publico da URL. Setas, Home e End funcionam com o trilho em foco, e o foco em um serviço traz sua janela para a área visível. Toque usa rolagem nativa; mouse permite arraste após deslocamento de 8px e termina com snap para a janela mais próxima. Sem JavaScript, as sete janelas permanecem empilhadas e legíveis.
+
+Uma linha de sete etapas permite navegação direta, mostra a janela atual com aria-current="step" e acompanha os filtros. No mobile mantém os números e os nomes acessíveis completos, distribuindo as sete etapas em linhas com alvos de pelo menos 44 por 44px; no desktop também exibe os títulos. A mudança de filtro coordena a apresentação da janela e de seus serviços, sem animar ou atrasar a atualização semântica.
 
 ### Media / Reservas
 
@@ -311,7 +319,7 @@ O componente já prevê imagens locais com dimensões, carregamento tardio fora 
 
 ### FAQ
 
-Details e summary nativos, perguntas separadas por linhas, alvo mínimo de 44px e ícone SVG de mais. Abrir gira o ícone 45 graus (160ms, ease-out), sem animar a altura do conteúdo. O texto da resposta permanece no documento.
+Details e summary nativos, perguntas separadas por linhas, alvo mínimo de 44px e ícone SVG de mais. Abrir gira o ícone 45 graus (160ms, ease-out) e expande o conteúdo em 360ms quando o navegador suporta interpolate-size. Sem esse suporte a abertura continua funcional e imediata. O texto da resposta permanece no documento.
 
 ### Footer
 

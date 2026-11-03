@@ -148,3 +148,22 @@ Documenter concluído: DESIGN.md normativo e sidecar schemaVersion 2 validados, 
 Solicitada pelo usuário após a entrega. Base alterada de /teste/ para /teste2/ e site para https://arthurhenriquevc-afk.github.io em um único arquivo. Workflow segue a documentação oficial atual do Astro em guides/deploy/github.mdx: checkout v7, withastro/action v6 e deploy-pages v5, Node24.22.1 e npm. Não há domínio personalizado nem alteração visual.
 
 Acesso Git ao repositório confirmado; API api.github.com bloqueada pela política de saída do ambiente. Foram salvos no rascunho os domínios api.github.com e arthurhenriquevc-afk.github.io para configuração do Pages e validação HTTPS. Essa gravação não aplica a política à instância.
+
+
+## Evolução de motion autorizada na home existente
+
+O usuário revogou as travas do prompt original, exceto cores e fonte, e pediu a análise do conteúdo seguida de aplicação de animações pela Impeccable. O prompt anterior passa a ser histórico; a orientação atual está em docs/MOTION.md e PRODUCT.md. Essa autorização também cobre a atualização dos registros do sistema visual. A paleta e os arquivos Geist não foram alterados.
+
+Tese: medir antes de cobrir. Uma passagem de leitura constrói um estudo arquitetônico sintético em pontos e contornos na abertura. A legenda o identifica como ilustração 3D e o nome acessível esclarece que não representa levantamento real. Os três destaques compartilham a cena, com títulos recortados direcionalmente e ações coordenadas. A linha de sete etapas navega diretamente pelas janelas reais e acompanha os filtros. Menus, abas, FAQ, totais e formulário recebem movimentos ligados a estado, relação e feedback.
+
+Implementação nativa: Canvas 2D, Web Animations API e CSS. Nenhuma dependência nova, chamada externa, fonte ou cor adicionada. A cena termina o loop em repouso e suspende fora da tela e em aba oculta; a densidade é limitada a 1,5. Mudança de preferência para movimento reduzido cancela animações e conserva a geometria estática. Sem JavaScript, os três destaques, as sete janelas e o contato continuam disponíveis.
+
+A primeira auditoria Lighthouse identificou CLS 0,793 decorrente do aprimoramento tardio do cabeçalho e dos slides. Corrigido com marcador de aprimoramento síncrono no head e slides inativos ocultos no HTML inicial, com fallback noscript para todos os destaques. A nova medição voltou a CLS 0, sem retirar as animações. A revisão independente identificou alvos pequenos na linha de etapas mobile; os sete controles passaram a quebrar em linhas e têm mínimo explícito de 44 por 44px.
+
+Validação final em Chromium: 86 verificações funcionais aprovadas (35 gerais, 9 gestos, 10 colisões, 32 de motion), incluindo todas as sete etapas em 320px e 390px, interrupção por trocas rápidas, repouso da renderização, teclado, movimento reduzido e versão sem JavaScript. Nenhuma violação axe AA nos cenários desktop, mobile e modo animado. Build estático aprovado, 104 textos conferidos e 15 fixtures negativas de HTML rejeitadas como esperado.
+
+Lighthouse mobile final: desempenho 100, acessibilidade 100, boas práticas 100; LCP 0,9s, CLS 0, TBT 0ms. São medições da instância de desenvolvimento com mídias ainda pendentes, não validação de dispositivos físicos, Safari/Firefox ou produção. Relatórios em reports/ e capturas em .impeccable/review/. A demonstração real das interações está em reports/union3d-motion.webm e .mp4.
+
+Detector mecânico executado uma vez nesta evolução. Restam somente os dois avisos de variantes responsivas de tamanho já descritas em DESIGN.md e o warning sobre Geist, que é obrigatória por orientação do usuário. Não houve silenciamento de regras. DESIGN.md e .impeccable/design.json registram o movimento implementado. Nenhum push ou publicação no GitHub Pages foi realizado nesta tarefa.
+
+Revisão independente concluída: o veredito `ship` pontuou o único ajuste solicitado, os alvos de etapas mobile, como resolvido e não encontrou regressões nesse lote. Esse veredito se limita à correção pontuada. Registro em reports/motion-review.md.

@@ -115,32 +115,47 @@
       {
         "name": "duration-fast",
         "value": "160ms",
-        "purpose": "Hover de botão e rotação do SVG da FAQ."
+        "purpose": "Cor, foco, pressão de controles e rotação do ícone de FAQ."
+      },
+      {
+        "name": "duration-normal",
+        "value": "360ms",
+        "purpose": "Indicadores de slide, linha de etapas e abertura nativa do FAQ."
+      },
+      {
+        "name": "duration-slow",
+        "value": "600ms",
+        "purpose": "Escala discreta de imagens reais em equipamentos e problemas."
       },
       {
         "name": "ease-out",
         "value": "cubic-bezier(.16,1,.3,1)",
-        "purpose": "Curva das microinterações existentes."
+        "purpose": "Curva compartilhada por CSS e Web Animations API."
       },
       {
-        "name": "button-hover",
-        "value": "transform:translateY(-2px)",
-        "purpose": "Resposta de hover em botões primary, light e outline."
+        "name": "scene-entry",
+        "value": "1350ms",
+        "purpose": "Passagem de leitura pela geometria arquitetônica ilustrativa; sem loop em repouso, fora da tela ou em aba oculta."
       },
       {
-        "name": "faq-open",
-        "value": "transform:rotate(45deg)",
-        "purpose": "Transforma o sinal de mais ao abrir details; não anima altura."
+        "name": "hero-entry",
+        "value": "780ms / 640ms",
+        "purpose": "Recorte direcional de entrada e troca de título, coordenado com perspectiva e ações."
+      },
+      {
+        "name": "count-once",
+        "value": "1000ms",
+        "purpose": "Quantidades reais com totais estáticos acessíveis e sem repetição automática."
       },
       {
         "name": "native-scroll",
         "value": "scroll-behavior:smooth",
-        "purpose": "Trilho de janelas e âncoras; APIs nativas, sem autoplay ou parallax."
+        "purpose": "Trilho e âncoras nativas, linha de sete etapas sincronizada com filtros e teclado; sem autoplay."
       },
       {
         "name": "reduced-motion",
-        "value": "transition-duration:.01ms;animation-duration:.01ms;animation-iteration-count:1;scroll-behavior:auto",
-        "purpose": "CSS global para prefers-reduced-motion; scrollTo/scrollIntoView usam instant no script quando a preferência está ativa."
+        "value": "static scene; cancel WAAPI; no counting; CSS .01ms",
+        "purpose": "Mudanças imediatas, geometria estática e pseudo-elemento details-content com duração reduzida."
       }
     ],
     "breakpoints": [

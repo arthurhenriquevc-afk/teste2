@@ -23,6 +23,7 @@ npm run build
 npm run preview -- --port 4321
 npm run test:browser
 npm run test:lighthouse
+node scripts/test-motion.mjs
 node scripts/test-gestures.mjs
 node scripts/test-floating.mjs
 node scripts/test-html-check.mjs
@@ -34,7 +35,14 @@ Nenhum servidor Node é necessário na KingHost. O servidor local serve somente 
 
 ## Publicação de teste no GitHub Pages
 
-O destino está configurado em src/config/deployment.mjs: site https://arthurhenriquevc-afk.github.io e base /teste2/. O workflow .github/workflows/deploy.yml usa a ação oficial do Astro, executa o build e seus verificadores e publica o artefato pelo GitHub Pages a cada push em main. Em Settings > Pages, a fonte deve ser GitHub Actions. O endereço esperado, após implantação concluída, é https://arthurhenriquevc-afk.github.io/teste2/.
+O destino está configurado em src/config/deployment.mjs: site https://arthurhenriquevc-afk.github.io e base padrão /teste2/. O workflow .github/workflows/deploy.yml usa a ação oficial do Astro, executa npm run build:pages e publica as duas versões no mesmo artefato a cada push em main. Em Settings > Pages, a fonte deve ser GitHub Actions.
+
+- Home original: https://arthurhenriquevc-afk.github.io/teste2/
+- Home com motion: https://arthurhenriquevc-afk.github.io/teste2/motion/
+
+O script scripts/build-pages.mjs recompõe a home original a partir do commit fixo 60a6e9a9017723ea8a182c7516ee15d5133181ac e gera a versão atual com UNION3D_BASE=/teste2/motion/. A versão antiga conserva seus próprios arquivos; a nova tem HTML e recursos no subdiretório motion. O checkout da CI carrega o histórico para acessar o commit original. O script confirma igualdade do lockfile e verifica a separação das duas homes antes de montar dist/. Nenhum arquivo da aplicação é trocado para gerar a versão antiga.
+
+Para reproduzir a publicação, execute npm run build:pages. Para desenvolver somente a versão atual, os comandos npm run dev e npm run build continuam usando a base padrão; use UNION3D_BASE para testar outra base.
 
 ## Caminho base e publicação na KingHost
 
@@ -48,6 +56,10 @@ O destino está configurado em src/config/deployment.mjs: site https://arthurhen
 8. Para usar a 404 personalizada em Apache, configure no painel da hospedagem o documento de erro para `/teste/404.html`. Se usar .htaccess, adicione `ErrorDocument 404 /teste/404.html` na pasta do teste. Ajuste o caminho se mudar a base. O build não altera configurações da hospedagem.
 
 O noindex, nofollow permanece ativo. Não há canonical, descrição, Open Graph textual ou dados estruturados preenchidos. A estrutura para esses campos está em src/config/visibility.ts, em `seo`.
+
+## Motion da home
+
+A orientação atual substitui as travas visuais do prompt histórico, mantendo cores e Geist. A home possui estudo espacial ilustrativo em Canvas 2D, transições canceláveis dos destaques, contagem única dos totais reais, linha de etapas sincronizada com filtros e respostas animadas de navegação, FAQ e formulário. A cena encerra a renderização em repouso e fora da tela; movimento reduzido e conteúdo sem JavaScript têm alternativas estáticas. Não há nova dependência nem chamada externa. Detalhes em docs/MOTION.md. As imagens dos destaques foram substituídas intencionalmente por essa ilustração compartilhada; as demais mídias reais ainda usam as reservas documentadas.
 
 ## Conteúdo e arquitetura
 
