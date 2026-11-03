@@ -1,0 +1,5 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { local } from '../config/urls';
+---
+<BaseLayout><div class="container not-found"><h1>Página não encontrada.</h1><p>O endereço solicitado não está disponível.</p><div><a class="button" href={local()}>Voltar para a home</a></div></div></BaseLayout>

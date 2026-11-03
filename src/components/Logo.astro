@@ -1,0 +1,8 @@
+---
+import Media from './Media.astro';
+import { local } from '../config/urls';
+const { footer = false } = Astro.props;
+const path = footer ? '/src/assets/logos/union3d.svg' : '/src/assets/logos/union3d-horizontal.svg';
+const images = import.meta.glob('/src/assets/logos/*.svg');
+---
+<a class="logo" href={local()} aria-label="UNION3D, início">{images[path] ? <Media path={path} alt="UNION3D" ratio={footer ? '1/1' : '4/1'}/> : <span class="logo-fallback">UNION3D</span>}</a>

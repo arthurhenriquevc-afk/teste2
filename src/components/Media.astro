@@ -1,0 +1,11 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+interface Props { path: string; alt: string; label?: string; ratio?: string; priority?: boolean; class?: string; }
+const {path, alt, label = alt, ratio = '16/9', priority = false, class: cls = ''} = Astro.props;
+const images = import.meta.glob<{default:ImageMetadata}>('/src/assets/**/*.{webp,png,jpg,jpeg,svg}', {eager:true});
+const image = images[path]?.default;
+---
+<div class:list={['media',cls]} style={`aspect-ratio:${ratio}`} role={image ? undefined : 'img'} aria-label={image ? undefined : alt}>
+ {image ? <Image src={image} alt={alt} widths={[480,800,1280]} sizes="(max-width: 600px) 100vw, 50vw" loading={priority ? 'eager' : 'lazy'} fetchpriority={priority ? 'high' : 'auto'}/> : <span class="media-placeholder" aria-hidden="true">{label}</span>}
+</div>

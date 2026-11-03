@@ -1,0 +1,16 @@
+---
+import Logo from './Logo.astro';
+import Media from './Media.astro';
+import { services } from '../data/services';
+import { company } from '../data/company';
+import { visibility, integrations } from '../config/visibility';
+import { local } from '../config/urls';
+---
+<footer class="site-footer"><div class="container">
+ <div class="footer-grid">
+  <div><Logo footer/><address>CNPJ {company.cnpj}<br/>{company.street}<br/>Balneário Camboriú, SC<br/>{company.postal}<br/><a href={`tel:${company.phoneLink}`}>{company.phone}</a><br/><a href={`mailto:${company.email}`}>{company.email}</a></address></div>
+  <div><h2>Serviços</h2><ul class="footer-services">{services.map(s=><li><a href={local(s.url)}>{s.name}</a></li>)}</ul></div>
+  <div><h2>Cidades</h2><p>Vale do Itajaí e litoral de SC</p><div class="actions"><a class="text-link" href={company.whatsapp} target="_blank" rel="noopener">WhatsApp</a>{visibility.instagram && integrations.instagram && <a class="text-link" href={integrations.instagram} rel="noopener" target="_blank">Instagram</a>}{visibility.youtube && integrations.youtube && <a class="text-link" href={integrations.youtube} rel="noopener" target="_blank">YouTube</a>}</div>{visibility.seal && integrations.sealImage && <div><h2>Selo</h2><Media path={integrations.sealImage} alt={integrations.sealAlt}/></div>}</div>
+ </div>
+ <p class="footer-bottom">© 2026 UNION3D. Todos os direitos reservados.</p>
+</div></footer>
