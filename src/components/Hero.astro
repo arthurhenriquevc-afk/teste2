@@ -8,7 +8,7 @@ import Icon from './Icon.astro';
  <div class="container">
  {home.hero.map((slide,i)=><article class="hero-slide" aria-label={`${i+1} de 3`} data-slide>
   <div class="hero-copy">{i===0 ? <h1>{slide.title}</h1> : <h2>{slide.title}</h2>}<p>{slide.text}</p>
-   <div class="actions">{slide.buttons.map((label,b)=><a class:list={['button',b===0 ? 'light':'outline']} href={anchor(label.includes('janelas') || label.startsWith('Serviços') ? 'janelas' : 'contato')} data-filter-target={label==='Serviços para empresas' ? 'Empresas' : label==='Serviços para profissionais' ? 'Profissionais' : undefined}>{label}{b===0 && <Icon/>}</a>)}</div>
+   <div class="actions">{slide.buttons.map((label,b)=><a class:list={['button',b===0 ? 'light':'outline']} href={label.startsWith('Serviços') ? `${import.meta.env.BASE_URL}?publico=${label==='Serviços para empresas'?'empresas':'profissionais'}#janelas` : anchor(label.includes('janelas') ? 'janelas' : 'contato')} data-filter-target={label==='Serviços para empresas' ? 'Empresas' : label==='Serviços para profissionais' ? 'Profissionais' : undefined}>{label}{b===0 && <Icon/>}</a>)}</div>
   </div>
   <div class="hero-visual"><Media path={slide.image} alt={slide.alt} ratio="4/5" priority={i===0}/></div>
  </article>)}

@@ -12,5 +12,6 @@ import FAQ from '../components/FAQ.astro';
 import Cases from '../components/Cases.astro';
 import Clients from '../components/Clients.astro';
 import { visibility } from '../config/visibility';
+import Contact from '../components/Contact.astro';
 ---
-<BaseLayout><Hero/><Numbers/><Problems/><Windows/><Technology/><About/>{visibility.cases && <Cases/>}{visibility.clients && <Clients/>}<Cloud/><Area/><FAQ/></BaseLayout>
+<BaseLayout><Hero/><Numbers/><Problems/><Windows/><Technology/><About/>{visibility.cases && <Cases/>}{visibility.clients && <Clients/>}<Cloud/><Area/><FAQ/><Contact/></BaseLayout>
